@@ -36,24 +36,28 @@ public class Solution
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         String grandFatherName = reader.readLine();
-        Cat catGrandFather = new Cat(grandFatherName);
-
-        String fatherName = reader.readLine();
-        Cat catFather = new Cat(fatherName);
-
-        String sonName = reader.readLine();
-        Cat catSon = new Cat(sonName);
+        Cat catGrandFather = new Cat(grandFatherName, null, null);
 
         String grandmotherName = reader.readLine();
-        Cat catGrandMother = new Cat(grandmotherName);
+        Cat catGrandMother = new Cat(grandmotherName, null, null);
+
+        String fatherName = reader.readLine();
+        Cat catFather = new Cat(fatherName, catGrandFather, null);
 
         String motherName = reader.readLine();
-        Cat catMother = new Cat(motherName);
+        Cat catMother = new Cat(motherName, null, catGrandFather);
+
+        String sonName = reader.readLine();
+        Cat catSon = new Cat(sonName, catFather, catMother);
 
         String daughterName = reader.readLine();
-        Cat catDaughter = new Cat(daughterName, catMother);
+        Cat catDaughter = new Cat(daughterName, catFather, catMother);
 
+        System.out.println(catGrandFather);
+        System.out.println(catGrandMother);
+        System.out.println(catFather);
         System.out.println(catMother);
+        System.out.println(catSon);
         System.out.println(catDaughter);
     }
 
@@ -78,10 +82,24 @@ public class Solution
         @Override
         public String toString()
         {
-            if (parentA == null && parentB == null)
-                return "Cat name is " + name + ", no mother, no father";
-            else if(parentA != null && parentB == null)
-                return "Cat name is " + name + ", mother is " + parentA.name +;
+            String x = "";
+            if (parentB == null && parentA == null)
+            {
+                x = "Cat name is " + name + ", no mother, no father";
+            }
+            else if (parentB != null && parentA == null)
+            {
+                x = "Cat name is " + name + ", mother is " + parentB.name + ", no father";
+            }
+            else if (parentB == null && parentA != null)
+            {
+                x = "Cat name is " + name + ", no mother, father is " + parentA.name;
+            }
+            else if (parentB != null && parentA != null)
+            {
+                x = "Cat name is " + name + ", mother is " + parentB.name + ", father is " + parentA.name;
+            }
+            return x;
         }
     }
 

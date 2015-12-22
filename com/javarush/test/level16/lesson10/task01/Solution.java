@@ -31,6 +31,10 @@ public class Solution {
         public void run() {
             try {
                 //add your code here - добавьте код тут
+                while(!isInterrupted()){
+                    seconds++;
+                    Thread.sleep(1000);
+                }
             } catch (InterruptedException e) {
                 System.out.println(seconds);
             }

@@ -9,6 +9,7 @@ public class Solution {
     int count;
 
     public Solution append(CharSequence s) {
+<<<<<<< HEAD
 
             if (s == null) {
                     s = "null";
@@ -24,6 +25,27 @@ public class Solution {
 
             }
 
+=======
+        synchronized (Solution.class) {
+            if (s == null) {
+                synchronized (this) {
+                    s = "null";
+                }
+            }
+
+            if (s instanceof String) {
+                synchronized (this) {
+                    return this.append((String) s);
+                }
+            }
+
+            if (s instanceof Solution) {
+                synchronized (this) {
+                    return this.appendThis((Solution) s);
+                }
+            }
+        }
+>>>>>>> refs/remotes/origin/master
         return this.append(s);
     }
 
@@ -41,18 +63,35 @@ public class Solution {
 
     private synchronized void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
         java.io.ObjectOutputStream.PutField fields = s.putFields();
+<<<<<<< HEAD
         {
             fields.put("value", value);
             fields.put("count", count);
             fields.put("shared", false);
+=======
+        synchronized (fields) {
+            fields.put("value", value);
+            fields.put("count", count);
+            fields.put("shared", false);
+        }
+        synchronized (s) {
+>>>>>>> refs/remotes/origin/master
             s.writeFields();
         }
     }
 
     private void readObject(java.io.ObjectInputStream s) throws java.io.IOException, ClassNotFoundException {
+<<<<<<< HEAD
 
             java.io.ObjectInputStream.GetField fields = s.readFields();
             value = (char[]) fields.get("value", null);
             count = fields.get("count", 0);
+=======
+        synchronized (new java.io.IOException()) {
+            java.io.ObjectInputStream.GetField fields = s.readFields();
+            value = (char[]) fields.get("value", null);
+            count = fields.get("count", 0);
+        }
+>>>>>>> refs/remotes/origin/master
     }
 }
